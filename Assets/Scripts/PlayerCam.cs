@@ -7,7 +7,7 @@ using Cursor = UnityEngine.Cursor;
 
 public class PlayerCam : MonoBehaviour
 {
-
+    //instance variables
     public float sensX;
     public float sensY;
     public Transform orientation;
@@ -16,6 +16,7 @@ public class PlayerCam : MonoBehaviour
 
     void Start()
     {
+        //makes the cursor locked in the middle of the screen
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -26,12 +27,14 @@ public class PlayerCam : MonoBehaviour
         float mouseX = Input.GetAxisRaw("Mouse X")  * Time.deltaTime * sensX;
         float mouseY = Input.GetAxisRaw("Mouse Y")  * Time.deltaTime * sensY;
 
+        //calculates the x and y rotation based off of player input
         yRotation += mouseX;
         xRotation -= mouseY;
 
+        //makes it so you cant look in circles up and down
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        // camera
+        //applies the rotation to the camera- allowing for mouse controlled pov
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
 
