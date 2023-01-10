@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace DefaultNamespace
 {
@@ -9,14 +8,16 @@ namespace DefaultNamespace
         public Transform portal;
         public Transform portal2;
 
-        void update() {
-            transform.position = portal.position + (playerCamera.position - portal2.position);
+        void LateUpdate() {
+            Vector3 playerOffsetFromPortal = playerCamera.position - portal2.position;
+		    transform.position = portal.position + playerOffsetFromPortal;
 
-            // offset rotations
-            transform.rotation = Quaternion.LookRotation(
-                Quaternion.AngleAxis(Quaternion.Angle(portal.rotation, portal2.rotation), Vector3.up) * playerCamera.forward,
-                Vector3.up
-            );
+
+            float angularDifferenceBetweenPortalRotations = Quaternion.Angle(portal.rotation, portal2.rotation);
+
+            Quaternion portalRotationalDifference = Quaternion.AngleAxis(angularDifferenceBetweenPortalRotations, Vector3.up);
+            Vector3 newCameraDirection = portalRotationalDifference * playerCamera.forward;
+            transform.rotation = Quaternion.LookRotation(newCameraDirection, Vector3.up);
         }
     }
 }
