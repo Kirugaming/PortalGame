@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
         readyToJump = true;
 
+
     }
 
     private void Update() {

@@ -17,7 +17,7 @@ public class PortalTexture : MonoBehaviour
 			portal1.targetTexture.Release();
 		}
 		portal1.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
-		portalMaterial2.mainTexture = portal1.targetTexture;
+		portalMaterial1.mainTexture = portal1.targetTexture;
 
         if (portal2.targetTexture != null) {
             portal2.targetTexture.Release();
