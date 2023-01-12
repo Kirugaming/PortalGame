@@ -68,7 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 7
   groundDrag: 5
-  jumpForce: 3
+  jumpForce: 6
   jumpCooldown: 0.25
   airMultiplier: 0.4
   jumpKey: 32
