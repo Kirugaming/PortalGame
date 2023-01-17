@@ -19,7 +19,8 @@ public class PortalShooter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        _currentInPortal = GameObject.Find("InPortal 1");
+        _currentOutPortal = GameObject.Find("outPortal");
     }
 
     // Update is called once per frame
@@ -36,25 +37,8 @@ public class PortalShooter : MonoBehaviour
                     float.MaxValue,
                     LayerMask.GetMask(new[] { "wall" })))
             {
-                if (_currentInPortal != null)
-                {
-                    GameObject.Destroy(_currentInPortal);
-                }
-                
 
-                _currentInPortal = Instantiate(inPortalPrefab);
-
-                GameObject.Find("PortalTextureManager").GetComponent<PortalTexture>().portal1 =
-                    GameObject.Find("inCamera").GetComponent<Camera>();
-
-                if (GameObject.Find("outPortal(Clone)") != null)
-                {
-                    GameObject.Find("inCamera").GetComponent<PortalCamera>().portal2 =
-                        GameObject.Find("outPortal(Clone)").transform;
-                    Debug.Log("1");  // TODO: FIX PORTAL TEXTURES
-                }
-
-                    _currentInPortal.transform.position = hitData.point + hitData.normal * .02f;
+                _currentInPortal.transform.position = hitData.point + hitData.normal * .02f;
                 _currentInPortal.transform.rotation = Quaternion.LookRotation(-hitData.normal,
                     hitData.normal.y >= 0f ? transform.up : transform.forward);
                 //_currentInPortal.transform.rotation = Quaternion.Euler(_currentInPortal.transform.rotation.x, 180, 0);
@@ -70,25 +54,8 @@ public class PortalShooter : MonoBehaviour
                     float.MaxValue,
                     LayerMask.GetMask(new[] { "wall" })))
             {
-                if (_currentOutPortal != null)
-                {
-                    GameObject.Destroy(_currentOutPortal);
-                }
-
-                _currentOutPortal = Instantiate(outPortalPrefab);
 
 
-                GameObject.Find("PortalTextureManager").GetComponent<PortalTexture>().portal2 =
-                    GameObject.Find("inCamera").GetComponent<Camera>();
-                
-                if (GameObject.Find("InPortal 1(Clone)") != null)
-                {
-                    GameObject.Find("outCamera").GetComponent<PortalCamera>().portal2 =
-                        GameObject.Find("InPortal 1(Clone)").transform;
-                    Debug.Log("2"); 
-                }
-                
-                
                 _currentOutPortal.transform.position = hitData.point + hitData.normal * .02f;
                 _currentOutPortal.transform.rotation = Quaternion.LookRotation(-hitData.normal,
                     hitData.normal.y >= 0f ? transform.up : transform.forward);
