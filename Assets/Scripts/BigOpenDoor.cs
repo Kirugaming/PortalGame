@@ -5,12 +5,12 @@ using UnityEngine;
 public class BigOpenDoor : MonoBehaviour
 {
     public GameObject door;
-    private Vector3 oldPos;
+    public Vector3 oldPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        oldPos = door.transform.localPosition;
     }
 
     // Update is called once per frame
@@ -22,7 +22,6 @@ public class BigOpenDoor : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         print("Button Pressed");
-        oldPos = door.transform.localPosition; 
         door.transform.localPosition = new Vector3(100, 0, 0);
         //Destroy(door);
     }
