@@ -20,7 +20,7 @@ public class PortalShooter : MonoBehaviour
     void Start()
     {
         _currentInPortal = GameObject.Find("InPortal 1");
-        _currentOutPortal = GameObject.Find("outPortal");
+        _currentOutPortal = GameObject.Find("OutPortal");
     }
 
     // Update is called once per frame
