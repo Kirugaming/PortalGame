@@ -8,6 +8,7 @@ public class TeleportPlayer : MonoBehaviour
     public Transform receiver;
 
     private bool overlap = false;
+    private GameObject currentObject;
 
     // Start is called before the first frame update
     void Start()
@@ -19,27 +20,34 @@ public class TeleportPlayer : MonoBehaviour
     void Update()
     {
         if (overlap) {
-            float dotAngle = Vector3.Dot(transform.up, player.position - transform.position);
+            if (GameObject.Find("outPortal(Clone)") != null)
+            {
+                receiver = GameObject.Find("outPortal(Clone)").transform;
+                float dotAngle = Vector3.Dot(transform.up, currentObject.transform.position - transform.position);
+                Debug.Log("test");
+                if (dotAngle < 0f) {
+                    currentObject.transform.Rotate(Vector3.up, -Quaternion.Angle(transform.rotation, receiver.rotation) + 180);
 
-            if (dotAngle < 0f) {
-                player.Rotate(Vector3.up, -Quaternion.Angle(transform.rotation, receiver.rotation) + 180);
+                    currentObject.transform.position = receiver.position + (Quaternion.Euler(0f, -Quaternion.Angle(transform.rotation, receiver.rotation), 0f) *  (currentObject.transform.position - transform.position));
 
-                player.position = receiver.position + (Quaternion.Euler(0f, -Quaternion.Angle(transform.rotation, receiver.rotation), 0f) *  (player.position - transform.position));
-
-                overlap = false;
+                    overlap = false;
+                } 
             }
+            
         }
     }
 
     void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
             overlap = true;
+            currentObject = other.gameObject;
         }
     }
 
     void OnTriggerExit(Collider other) {
         if (other.tag == "Player") {
             overlap = false;
+            currentObject = null;
         }
     }
 }
