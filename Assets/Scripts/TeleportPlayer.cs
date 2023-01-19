@@ -19,12 +19,17 @@ public class TeleportPlayer : MonoBehaviour
     void Update()
     {
         if (overlap) {
+            Vector3 portalToPlayer = player.position - transform.position;
             float dotAngle = Vector3.Dot(transform.up, player.position - transform.position);
 
             if (dotAngle < 0f) {
-                player.Rotate(Vector3.up, -Quaternion.Angle(transform.rotation, receiver.rotation) - 180);
 
-                player.position = receiver.position + (Quaternion.Euler(0f, -Quaternion.Angle(transform.rotation, receiver.rotation), 0f) *  (player.position - transform.position));
+                float rotationDiff = Quaternion.Angle(transform.rotation, receiver.rotation);
+                rotationDiff += 180;
+                player.Rotate(Vector3.up, rotationDiff);
+
+
+                player.position = receiver.position + (Quaternion.Euler(0f, rotationDiff, 0f) *  portalToPlayer);
 
                 overlap = false;
             }
