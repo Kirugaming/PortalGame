@@ -35,7 +35,7 @@ public class PortalShooter : MonoBehaviour
                     playerCamera.transform.forward,
                     out hitData,
                     float.MaxValue,
-                    LayerMask.GetMask(new[] { "wall" })))
+                    LayerMask.GetMask(new[] { "wall", "ground" })))
             {
 
                 _currentInPortal.transform.position = hitData.point + hitData.normal * .02f;
@@ -52,7 +52,7 @@ public class PortalShooter : MonoBehaviour
                     playerCamera.transform.forward,
                     out hitData,
                     float.MaxValue,
-                    LayerMask.GetMask(new[] { "wall" })))
+                    LayerMask.GetMask(new[] { "wall", "ground" })))
             {
 
 
