@@ -24,7 +24,7 @@ public class TeleportPlayer : MonoBehaviour
 
             if (dotAngle < 0f) {
 
-                float rotationDiff = Quaternion.Angle(transform.rotation, receiver.rotation);
+                float rotationDiff = -Quaternion.Angle(transform.rotation, receiver.rotation);
                 rotationDiff += 180;
                 player.Rotate(Vector3.up, rotationDiff);
 
