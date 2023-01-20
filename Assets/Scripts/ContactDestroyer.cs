@@ -7,7 +7,10 @@ public class ContactDestroyer : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
+        if ((other.gameObject.tag == "Cube"))
+        {
+            Destroy(other.gameObject);
+        }
     }
     void Start()
     {
